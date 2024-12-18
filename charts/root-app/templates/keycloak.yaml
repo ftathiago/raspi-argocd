@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io  
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ftathiago/raspi-argocd.git
+    path: keycloak
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: keycloak
+  sources: []
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
